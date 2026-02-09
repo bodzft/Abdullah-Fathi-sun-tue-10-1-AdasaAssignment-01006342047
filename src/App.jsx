@@ -2,7 +2,7 @@
 // Main App Router
 // Created by Abdullah Fathi
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import LayOut from "./pages/LayOut.jsx";
@@ -17,46 +17,22 @@ import NotFound from "./pages/NotFound.jsx";
 import postsData from "./data/posts.json";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <LayOut />,
-      children: [
-        {
-          index: true,
-          element: <Home data={postsData} />,
-        },
-        {
-          path: "home",
-          element: <Home data={postsData} />,
-        },
-        {
-          path: "blog",
-          element: <Blog data={postsData} />,
-        },
-        {
-          path: "blog/:slug",
-          element: <BlogPost data={postsData} />,
-        },
-        {
-          path: "about",
-          element: <About data={postsData} />,
-        },
-        {
-          path: "privacy",
-          element: <Privacy />,
-        },
-        {
-          path: "terms",
-          element: <Terms />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
+const router = createHashRouter([
+  {
+    path: "/",
+    element: <LayOut />,
+    children: [
+      { index: true, element: <Home data={postsData} /> },
+      { path: "blog", element: <Blog data={postsData} /> },
+      { path: "blog/:slug", element: <BlogPost data={postsData} /> },
+      { path: "about", element: <About data={postsData} /> },
+      { path: "privacy", element: <Privacy /> },
+      { path: "terms", element: <Terms /> },
+      { path: "*", element: <NotFound /> }
+    ]
+  }
+]);
+
 
   return <RouterProvider router={router} />;
 }
